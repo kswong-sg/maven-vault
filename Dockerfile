@@ -15,6 +15,12 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
+# integrate vault
+RUN wget https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip \
+  && unzip vault_1.2.3_linux_amd64.zip \
+  && mv vault /usr/bin \
+  && rm -f vault_1.2.3_linux_amd64
+
 COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml /usr/share/maven/ref/
 
